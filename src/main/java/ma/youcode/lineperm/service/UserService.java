@@ -22,7 +22,6 @@ public class UserService {
 
 
     private void loadUsers() {
-    
 
         try {
             List<String> lines = Files.readAllLines(usersFile);
@@ -34,7 +33,8 @@ public class UserService {
 
                 String[] parts = line.split(":");
                 if (parts.length == 2) {
-                    users.put(parts[0], new User(parts[0], parts[1]));
+                    User user = new User(parts[0], parts[1]);
+                    users.put(parts[0],user);
                 }
             }
         } catch (IOException e) {
@@ -48,7 +48,7 @@ public class UserService {
         List<String> lines = new ArrayList<>();
 
         for (User user : users.values()) {
-            lines.add(user.getLogin() + "-" + user.getPassword());
+            lines.add(user.getLogin() + ":" + user.getPassword());
         }
         try {
             Files.write(usersFile, lines);
