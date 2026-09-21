@@ -16,6 +16,7 @@ public class LogAnalyzerApp {
             System.out.println("1) Nombre total d'actions");
             System.out.println("2) Nombre d'accès refusés");
             System.out.println("3) Utilisateurs distincts");
+            System.out.println("4) Actions par utilisateur");
             System.out.println("0) Quitter");
             System.out.print("Choix: ");
 
@@ -30,6 +31,9 @@ public class LogAnalyzerApp {
                     break;
                 case "3":
                     System.out.println("Utilisateurs: " + logService.getDistinctUsers());
+                    break;
+                case "4":
+                    System.out.println( logService.getActionsPerUser());
                     break;
                 case "0":
                     back = true;

@@ -6,6 +6,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 public class LogAnalayzerService {
@@ -50,5 +51,8 @@ public class LogAnalayzerService {
         return logs.stream().map(AccessLog::getUser).distinct().collect(Collectors.toList());
     }
 
+    public Map<String, Long> getActionsPerUser() {
+        return logs.stream().collect(Collectors.groupingBy(AccessLog::getUser,Collectors.counting()));
+    }
     
 }
