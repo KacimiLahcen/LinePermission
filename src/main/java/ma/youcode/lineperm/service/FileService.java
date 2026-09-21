@@ -14,7 +14,7 @@ import java.util.Map;
 public class FileService {
 
     private final Map<String, FichierProtege> fichiers = new HashMap<>();
-    private final Path permissionsPath = Path.of("data/permissions.txt");
+    private final Path permissionsPath = Path.of("resources/permissions.txt");
     private final Path dataDir = Path.of("data");
 
     public FileService() {

@@ -7,14 +7,14 @@ import ma.youcode.lineperm.service.UserService;
 import java.util.List;
 import java.util.Scanner;
 
-public class ConsoleApp {   
+public class ConsoleApp {
 
     private final UserService userService = new UserService();
-    private final FileService fileService = new FileService(); 
-    
+    private final FileService fileService = new FileService();
+
     private String loggedUser = null;
 
-    public void start() {   
+    public void start() {
         System.out.println("=================================================");
         System.out.println("    LinePerm : gestion de fichiers & droits");
         System.out.println("=================================================");
@@ -31,7 +31,8 @@ public class ConsoleApp {
             }
 
             String choix = scanner.nextLine().trim();
-            if (choix.isEmpty()) continue;
+            if (choix.isEmpty())
+                continue;
 
             if (choix.equals("exit")) {
                 System.out.println("Au revoir.");
@@ -52,7 +53,11 @@ public class ConsoleApp {
                     handleLogout();
                     break;
                 case "help":
-                    System.out.println("Commandes disponibles: signup, login, logout, ls -l, touch, cat, nano, chmod, help, exit");
+                    if (loggedUser == null) {
+                        System.out.println("Commandes disponibles: signup, login, help, exit");
+                    } else {
+                        System.out.println("Commandes disponibles: ls -l, touch, cat, nano, chmod, help, logout, exit");
+                    }
                     break;
 
                 case "ls":
@@ -93,6 +98,11 @@ public class ConsoleApp {
                     } else {
                         System.out.println("Usage: nano <filename>");
                     }
+                    break;
+
+                case "stats":
+                    LogAnalyzerApp logApp = new LogAnalyzerApp();
+                    logApp.start();
                     break;
 
                 case "chmod":
@@ -175,18 +185,20 @@ public class ConsoleApp {
         System.out.println(nomFichier);
         System.out.println("--- Saisis ton texte. Tape EOF seul sur une ligne pour enregistrer.");
 
-        
         StringBuilder sb = new StringBuilder();
         int linesCount = 0;
         while (true) {
             String line = scanner.nextLine();
-            if (line.equals("EOF")) break;
-            if (sb.length() > 0) sb.append("\n");
+            if (line.equals("EOF"))
+                break;
+            if (sb.length() > 0)
+                sb.append("\n");
             sb.append(line);
             linesCount++;
         }
 
         fileService.saveContent(nomFichier, sb.toString());
-        System.out.println("Fichier '" + nomFichier + "' enregistré (" + linesCount + " ligne" + (linesCount > 1 ? "s" : "") + ").");
+        System.out.println("Fichier '" + nomFichier + "' enregistré (" + linesCount + " ligne"
+                + (linesCount > 1 ? "s" : "") + ").");
     }
 }

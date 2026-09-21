@@ -30,7 +30,7 @@ public class UserService {
                 if (line.trim().isEmpty()) {
                      continue;
                 }
-
+                
                 String[] parts = line.split(":");
                 if (parts.length == 2) {
                     User user = new User(parts[0], parts[1]);

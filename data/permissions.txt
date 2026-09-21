@@ -1,5 +1,0 @@
-lahcen.java;lhrda;rwd;---
-test.js;honor;rwd;--d
-testx.js;tester;rwd;r--
-aziz.txt;mehdi;rwd;---
-kacimi.txt;kacimi;rwd;rwd
