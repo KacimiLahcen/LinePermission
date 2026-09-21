@@ -56,7 +56,7 @@ public class ConsoleApp {
                     if (loggedUser == null) {
                         System.out.println("Commandes disponibles: signup, login, help, exit");
                     } else {
-                        System.out.println("Commandes disponibles: ls -l, touch, cat, nano, chmod, help, logout, exit");
+                        System.out.println("Commandes disponibles: stats, ls -l, touch, cat, nano, chmod, help, logout, exit");
                     }
                     break;
 
