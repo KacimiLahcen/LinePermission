@@ -3,6 +3,7 @@ package ma.youcode.lineperm.ui;
 import ma.youcode.lineperm.model.FichierProtege;
 import ma.youcode.lineperm.service.FileService;
 import ma.youcode.lineperm.service.UserService;
+import ma.youcode.lineperm.service.LogAnalayzerService;
 
 import java.util.List;
 import java.util.Scanner;
@@ -11,7 +12,7 @@ public class ConsoleApp {
 
     private final UserService userService = new UserService();
     private final FileService fileService = new FileService();
-
+    private final LogAnalayzerService logService = new LogAnalayzerService();
     private String loggedUser = null;
 
     public void start() {
@@ -84,6 +85,7 @@ public class ConsoleApp {
                     if (loggedUser == null) {
                         System.out.println("Commande inconnue. Connecte-toi d'abord.");
                     } else if (parts.length == 2) {
+                        logService.logAction(loggedUser, "LECTURE", parts[1], "OK");
                         System.out.println(fileService.cat(parts[1], loggedUser));
                     } else {
                         System.out.println("Usage: cat <filename>");

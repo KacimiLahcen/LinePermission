@@ -4,10 +4,14 @@ import ma.youcode.lineperm.model.AccessLog;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
+import java.nio.file.StandardOpenOption;
 
 public class LogAnalayzerService {
 
@@ -52,7 +56,22 @@ public class LogAnalayzerService {
     }
 
     public Map<String, Long> getActionsPerUser() {
-        return logs.stream().collect(Collectors.groupingBy(AccessLog::getUser,Collectors.counting()));
+        return logs.stream().collect(Collectors.groupingBy(AccessLog::getUser, Collectors.counting()));
     }
-    
+
+    public void logAction(String user, String action, String filename, String result) {
+
+        String date = LocalDate.now().toString();
+        String time = LocalTime.now().format(DateTimeFormatter.ofPattern("HH:mm"));
+        String logLine = String.format("%s;%s;%s;%s;%s;%s\n", date, time, user, action, filename, result);
+
+        try {
+            Files.writeString(logFilePath, logLine, StandardOpenOption.CREATE, StandardOpenOption.APPEND);
+
+            AccessLog newLog = new AccessLog(date, time, user, action, filename, result);
+            logs.add(newLog);
+        } catch (IOException e) {
+            System.out.println("Erreur lors de l'ecriture dans access.log: " + e.getMessage());
+        }
+    }
 }
