@@ -81,21 +81,30 @@ public class ConsoleApp {
                     }
                     break;
 
+
                 case "cat":
                     if (loggedUser == null) {
                         System.out.println("Commande inconnue. Connecte-toi d'abord.");
                     } else if (parts.length == 2) {
-                        logService.logAction(loggedUser, "LECTURE", parts[1], "OK");
-                        System.out.println(fileService.cat(parts[1], loggedUser));
+                        String catResult = fileService.cat(parts[1], loggedUser);
+                        String status = catResult.contains("Permission denied") ? "REFUSE" : "OK";
+                        logService.logAction(loggedUser, "LECTURE", parts[1], status);
+                        System.out.println(catResult);
                     } else {
                         System.out.println("Usage: cat <filename>");
                     }
                     break;
 
+
+
                 case "nano":
                     if (loggedUser == null) {
                         System.out.println("Commande inconnue. Connecte-toi d'abord.");
                     } else if (parts.length == 2) {
+                        boolean canEdit = fileService.peutEditer(parts[1], loggedUser);
+                        String stat = canEdit ? "OK" : "REFUSE";
+                        logService.logAction(loggedUser, "ECRITURE", parts[1], stat);
+                        if (canEdit)
                         handleNano(scanner, parts[1]);
                     } else {
                         System.out.println("Usage: nano <filename>");
@@ -136,7 +145,7 @@ public class ConsoleApp {
         String password = scanner.nextLine();
 
         if (userService.signup(login, password)) {
-            System.out.println("Account created with success.");
+            System.out.println("Account created!");
         } else {
             System.out.println("Erreur: Login invalide, contient des espaces ou existe deja.");
         }

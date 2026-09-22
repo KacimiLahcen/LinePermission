@@ -14,7 +14,7 @@ import java.util.Map;
 public class FileService {
 
     private final Map<String, FichierProtege> fichiers = new HashMap<>();
-    private final Path permissionsPath = Path.of("resources/permissions.txt");
+    private final Path permissionsPath = Path.of("src/main/resources/permissions.txt");
     private final Path dataDir = Path.of("data");
 
     public FileService() {
@@ -36,7 +36,7 @@ public class FileService {
     }
 
     private void loadPermissions() {
-        if (!Files.exists(permissionsPath)) return;
+        // if (!Files.exists(permissionsPath)) return;
         try {
             List<String> lines = Files.readAllLines(permissionsPath);
             for (String line : lines) {
@@ -60,6 +60,7 @@ public class FileService {
                     fichiers.put(nom, f);
                 }
             }
+            // System.out.println(fichiers.size());
         } catch (IOException e) {
             System.out.println("Erreur de chargement des permissions.");
         }
