@@ -1,5 +1,0 @@
-hello world
-hello test 1234
-test 
-allo
-h eof EOF

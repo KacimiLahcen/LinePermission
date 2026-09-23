@@ -59,6 +59,16 @@ public class LogAnalayzerService {
         return logs.stream().collect(Collectors.groupingBy(AccessLog::getUser, Collectors.counting()));
     }
 
+    public String getTopConsultedFile() {
+        String consultedFile = logs.stream().collect(Collectors.groupingBy(AccessLog::getFilename, Collectors.counting()))
+                                .entrySet().stream().max(Map.Entry.comparingByValue())
+                                .map(Map.Entry::getKey).orElse("Aucun file");
+            return consultedFile;
+    }
+
+
+
+
     public void logAction(String user, String action, String filename, String result) {
 
         String date = LocalDate.now().toString();

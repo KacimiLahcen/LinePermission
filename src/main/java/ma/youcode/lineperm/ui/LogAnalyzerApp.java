@@ -17,6 +17,7 @@ public class LogAnalyzerApp {
             System.out.println("2) Nombre d'accès refusés");
             System.out.println("3) Utilisateurs distincts");
             System.out.println("4) Actions par utilisateur");
+            System.out.println("5) Top consulted file");
             System.out.println("0) Quitter");
             System.out.print("Choix: ");
 
@@ -34,6 +35,9 @@ public class LogAnalyzerApp {
                     break;
                 case "4":
                     System.out.println( logService.getActionsPerUser());
+                    break;
+                case "5":
+                    System.out.println("fichier le plus consultes : " + logService.getTopConsultedFile());
                     break;
                 case "0":
                     back = true;
