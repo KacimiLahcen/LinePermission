@@ -17,7 +17,7 @@ public class DBConnection {
                 connection = DriverManager.getConnection(URL);
             }
         } catch (SQLException e) {
-            System.out.println("pas connectes ");
+            System.out.println("Pas connectes : " + e.getMessage());
         }
         return connection;
     }
